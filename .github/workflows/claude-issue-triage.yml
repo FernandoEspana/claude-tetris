@@ -36,8 +36,12 @@ jobs:
                previously applied by this same automation if the issue was edited and no
                longer matches them.
 
-            3. Write a general diagnosis as markdown, starting with this exact marker on its
-               own first line: `<!-- claude-diagnosis -->`. The diagnosis should cover:
+            3. Write a general diagnosis as valid GitHub-Flavored Markdown (GFM) — it must
+               render cleanly on the GitHub issue page: use `##`/`###` headings, `-` bullet
+               lists, backtick code spans for file/function names, and fenced code blocks
+               (```) for any code or logs. Do not use raw HTML besides the marker below and
+               do not leave stray markdown syntax unrendered. Start with this exact marker on
+               its own first line: `<!-- claude-diagnosis -->`. The diagnosis should cover:
                - Short summary of the problem/request.
                - Likely root cause or affected area of the codebase (name concrete files/
                  components if you can identify them by exploring the repo).
