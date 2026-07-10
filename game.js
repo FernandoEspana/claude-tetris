@@ -13,7 +13,7 @@ const COLORS = [
   '#e57373', // Z - red
   '#64b5f6', // J - pale blue
   '#ffb74d', // L - orange
-  '#9e9e9e', // H - hueca (gris)
+  '#e53935', // H - hueca (rojo)
 ];
 
 const PIECES = [
