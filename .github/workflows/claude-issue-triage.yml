@@ -1,0 +1,59 @@
+name: Claude Issue Triage
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Run Claude Issue Triage
+        id: claude-triage
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          claude_args: '--allowed-tools "Bash(gh issue view:*),Bash(gh issue edit:*),Bash(gh issue comment:*),Bash(gh label list:*)"'
+          prompt: |
+            Analyze GitHub issue #${{ github.event.issue.number }} in ${{ github.repository }}.
+
+            1. Read the issue: `gh issue view ${{ github.event.issue.number }} --json title,body,labels,comments`
+
+            2. List the repo's existing labels: `gh label list`. Choose zero or more labels
+               that fit this issue ONLY from that existing set — do NOT create new labels.
+               Apply them with `gh issue edit ${{ github.event.issue.number }} --add-label "name1,name2"`.
+               If a label already correctly applied, leave it; remove clearly wrong labels
+               previously applied by this same automation if the issue was edited and no
+               longer matches them.
+
+            3. Write a general diagnosis as markdown, starting with this exact marker on its
+               own first line: `<!-- claude-diagnosis -->`. The diagnosis should cover:
+               - Short summary of the problem/request.
+               - Likely root cause or affected area of the codebase (name concrete files/
+                 components if you can identify them by exploring the repo).
+               - Suggested approach/next steps for implementing the fix or feature.
+               Keep it concise and actionable — this diagnosis is read by a developer who
+               will write the actual fix next.
+
+            4. Check whether this issue already has a comment starting with
+               `<!-- claude-diagnosis -->` (from `gh issue view --json comments`).
+               - If yes: update that same comment in place, e.g.
+                 `gh issue comment ${{ github.event.issue.number }} --edit-last --body "..."`
+                 (only works if it was the last comment you posted; if another comment came
+                 after it, instead edit it directly via
+                 `gh api repos/${{ github.repository }}/issues/comments/<id> -X PATCH -f body="..."`).
+               - If no: post it as a new comment with
+                 `gh issue comment ${{ github.event.issue.number }} --body "..."`.
+
+            Do not post more than one diagnosis comment per issue — always reuse/update the
+            existing one identified by the marker.
