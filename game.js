@@ -15,6 +15,7 @@ const COLORS = [
   '#ffb74d', // L - orange
   '#9e9e9e', // H - hueca (gris)
   '#f06292', // U - rosa
+  '#e53935', // H - hueca (rojo)
 ];
 
 const PIECES = [
