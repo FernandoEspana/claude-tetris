@@ -22,6 +22,16 @@
         </div>
 
         <div class="panel-section">
+          <span class="label">SKIN</span>
+          <select id="skin-select" class="select">
+            <option value="retro">Retro</option>
+            <option value="neon">Neon</option>
+            <option value="pastel">Pastel</option>
+            <option value="pixel">Pixel art</option>
+          </select>
+        </div>
+
+        <div class="panel-section">
           <span class="label">SCORE</span>
           <span class="value" id="score">0</span>
         </div>
@@ -46,17 +56,50 @@
             <li><kbd>↑</kbd> rotar</li>
             <li><kbd>↓</kbd> bajar</li>
             <li><kbd>Space</kbd> caída</li>
-            <li><kbd>P</kbd> pausa</li>
+            <li><kbd>P</kbd> / <kbd>Esc</kbd> menú</li>
           </ul>
         </div>
       </aside>
     </div>
 
-    <div id="overlay" class="overlay hidden">
+    <div id="overlay" class="overlay" data-mode="start">
       <div class="overlay-box">
-        <p id="overlay-title">GAME OVER</p>
-        <p id="overlay-score"></p>
-        <button id="restart-btn">Reiniciar</button>
+        <p id="overlay-title">TETRIS</p>
+        <p id="overlay-score" class="mode-el m-gameover"></p>
+
+        <!-- Records (inicio + game over) -->
+        <div id="records" class="records mode-el m-start m-gameover"></div>
+
+        <!-- Entrada de nombre (solo game over si clasifica) -->
+        <div id="name-entry" class="name-entry mode-el hidden">
+          <label class="name-label">Tu nombre
+            <input id="name-input" type="text" maxlength="8" autocomplete="off" placeholder="AAA" />
+          </label>
+          <button id="save-score-btn" class="btn">Guardar</button>
+        </div>
+
+        <!-- Nivel inicial (inicio + pausa) -->
+        <label id="startlevel-wrap" class="startlevel mode-el m-start m-pause">Nivel inicial
+          <select id="startlevel-select" class="select"></select>
+        </label>
+
+        <!-- Lista de controles dentro del menú (toggle) -->
+        <ul id="menu-controls" class="menu-controls mode-el hidden">
+          <li><kbd>←</kbd><kbd>→</kbd> mover</li>
+          <li><kbd>↑</kbd> / <kbd>X</kbd> rotar</li>
+          <li><kbd>↓</kbd> soft drop</li>
+          <li><kbd>Space</kbd> hard drop</li>
+          <li><kbd>P</kbd> / <kbd>Esc</kbd> pausa</li>
+        </ul>
+
+        <!-- Botones (visibilidad según modo) -->
+        <div class="overlay-buttons">
+          <button id="start-btn" class="btn mode-el m-start">Empezar</button>
+          <button id="resume-btn" class="btn mode-el m-pause">Reanudar</button>
+          <button id="restart-btn" class="btn mode-el m-pause m-gameover">Reiniciar</button>
+          <button id="controls-btn" class="btn btn-ghost mode-el m-pause">Ver controles</button>
+          <button id="reset-scores-btn" class="btn btn-ghost mode-el m-start m-gameover">Resetear records</button>
+        </div>
       </div>
     </div>
   </div>
