@@ -232,13 +232,22 @@ kbd {
   color: var(--overlay-score-color);
 }
 
-#restart-btn {
-  margin-top: 8px;
+/* ---- Botones del overlay ---- */
+.overlay-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: stretch;
+  width: 180px;
+  margin-top: 4px;
+}
+
+.btn {
   background: var(--restart-bg);
   color: var(--restart-color);
   border: none;
   border-radius: 6px;
-  padding: 10px 28px;
+  padding: 10px 20px;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
@@ -246,6 +255,165 @@ kbd {
   transition: background 0.15s;
 }
 
-#restart-btn:hover {
+.btn:hover {
   background: var(--restart-hover-bg);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--value-color);
+  border: 1px solid var(--board-border);
+  font-weight: 600;
+}
+
+.btn-ghost:hover {
+  background: var(--kbd-bg);
+}
+
+.mode-el.hidden {
+  display: none;
+}
+
+/* ---- Selects ---- */
+.select {
+  background: var(--kbd-bg);
+  color: var(--text);
+  border: 1px solid var(--kbd-border);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.startlevel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--label-color);
+  align-items: center;
+}
+
+/* ---- Records ---- */
+.records {
+  width: 220px;
+}
+
+.records-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.records-table th {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--label-color);
+  text-align: left;
+  padding: 2px 6px;
+  border-bottom: 1px solid var(--board-border);
+}
+
+.records-table td {
+  padding: 3px 6px;
+}
+
+.records-table td:last-child {
+  text-align: right;
+}
+
+.records-table tr.hl td {
+  color: var(--restart-bg);
+  font-weight: 700;
+}
+
+.records-extra {
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--controls-color);
+  text-align: center;
+}
+
+/* ---- Entrada de nombre ---- */
+.name-entry {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.name-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--label-color);
+}
+
+#name-input {
+  background: var(--kbd-bg);
+  color: var(--text);
+  border: 1px solid var(--kbd-border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 16px;
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  width: 110px;
+}
+
+/* ---- Lista de controles dentro del menú ---- */
+.menu-controls {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  font-size: 12px;
+  color: var(--controls-color);
+}
+
+.menu-controls li {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.menu-controls.hidden {
+  display: none;
+}
+
+/* ---- Skins (data-skin sobre body) ---- */
+body[data-skin="neon"] {
+  --bg: #05050a;
+  --board-bg: #08080f;
+  --board-border: #1a1a3a;
+  --grid-color: #14142a;
+  --title-color: #00e5ff;
+  --value-color: #00e5ff;
+}
+
+body[data-skin="pastel"] {
+  --board-bg: #fdf7ff;
+  --grid-color: #ecdcf2;
+  --board-border: #e0cfe8;
+}
+
+body[data-skin="pastel"] #board,
+body[data-skin="pastel"] #next-canvas {
+  border-radius: 10px;
+}
+
+body[data-skin="pixel"] {
+  --grid-color: #2a2a3a;
+}
+body[data-skin="pixel"] .game-title {
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 6px;
 }
